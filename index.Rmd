@@ -1,0 +1,16 @@
+---
+title: "Sydney Rilum"
+image: "sydney.jpg"
+links:
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/sydneyrilum"
+  - label: GitHub
+    url: "https://github.com/sydneyrilum"
+  - label: Email
+    url: "mailto:sydneyrilum@ucsb.edu"
+site: distill::distill_website
+output: 
+  postcards::trestles
+---
+
+SYDNEY RILUM is a first-year master’s student at the UCSB Bren School of Environmental Science & Management, and plans to pursue a dual specialization in Coastal Marine Resources Management and Coastal Planning. She graduated magna cum laude from the University of San Diego in 2018 with a bachelor’s in Environmental & Ocean Sciences, Marine Ecology focus. Sydney hopes to further her career in ocean conservation, education, and research with a specific focus on the impacts of climate change and plastic pollution. 
