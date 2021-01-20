@@ -11,4 +11,3 @@ navbar:
       href: about.html
 output: distill::distill_article
 theme: postcards.css
-site: tobi.html
