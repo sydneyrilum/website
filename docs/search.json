@@ -1,12 +1,34 @@
 {
   "articles": [
     {
+      "path": "about.html",
+      "title": "About me",
+      "description": "Hi my name is Sydney!",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-02-01T00:12:29-08:00"
+    },
+    {
+      "path": "blog.html",
+      "title": "Blog",
+      "author": [],
+      "contents": "\n\n\n\n",
+      "last_modified": "2021-02-01T00:12:29-08:00"
+    },
+    {
       "path": "cv.html",
       "title": "CV",
       "author": [],
       "date": "`r format(Sys.time(), '%B %Y')`",
       "contents": "\n    \n    \n    SR\n    \n    \n    Home\n    About\n    Blog\n    CV\n    ☰\n    \n    \n      \n        \n          \n            \n            \n            \n          \n          \n        \n        \n          \n      Home\n    \n    \n      About\n    \n    \n      Blog\n    \n    \n      CV\n    \n          \n      \n    \n    \n    \n      Sydney Rilum\n      Master’s Student\n      Bren School of Environmental Science & Management\n\n      \n      |\n      \n      \n       sydneyrilum@ucsb.edu |\n      \n       sydneyrilum |\n       sydneyrilum |\n      \n\n      \n      Education\n      \n      2020-2022 Santa Barbara, California Master of Environmental Science & Management (UCSB Bren School)\n      \n      \n      2014-2018 San Diego, California Bachelor of Arts in Environmental & Ocean Sciences (University of San Diego)\n      \n      \n      \n      Work Experience\n      \n      1903 Nobel Prize in Physics (Awarded for her work on radioactivity with Pierre Curie and Henri Becquerel)\n      \n      \n      1911 Nobel Prize in Chemistry (Awarded for the discovery of radium and polonium)\n      \n      \n      \n      Publications\n      \n      \n      1. O’Hara-Wild, M., & Hyndman, R. (2021). Vitae: Curriculum vitae for r markdown. https://CRAN.R-project.org/package=vitae\n      \n      \n      \n    \n  \n\n\n\n\n",
-      "last_modified": "2021-02-01T00:11:33-08:00"
+      "last_modified": "2021-02-01T00:12:30-08:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Sydney Rilum",
+      "author": [],
+      "contents": "\n\n          \n          \n          SR\n          \n          \n          Home\n          About\n          Blog\n          CV\n          ☰\n          \n          \n      \n        \n          \n            \n              \n            \n              Sydney Rilum\n            \n            \n              \n                \n                    \n                      \n                        LinkedIn\n                      \n                    \n                  \n                                    \n                    \n                      \n                        GitHub\n                      \n                    \n                  \n                                    \n                    \n                      \n                        Email\n                      \n                    \n                  \n                                  \n            \n          \n        \n        \n        \n          \n            Sydney is a first year Master’s student at the Bren School of Environmental Science & Management, specializing in Coastal Marine Resources Management and Conservation Planning. After receiving her bachelor’s in Environmental & Ocean Sciences from the University of San Diego in 2018, she worked as a Tidepool Educator for the Laguna Ocean Foundation and Scientific Aid for the California Department of Fish and Wildlife. Sydney hopes to further her career in marine conservation, education, and research with a specific focus on the impacts of climate change and plastic pollution.\n          \n        \n      \n    \n\n    \n      \n        \n          \n            \n              \n            \n              Sydney Rilum\n            \n            \n              \n                \n                                    \n                    \n                      LinkedIn\n                    \n                  \n                                    \n                    \n                      GitHub\n                    \n                  \n                                    \n                    \n                      Email\n                    \n                  \n                                  \n              \n            \n            \n              Sydney is a first year Master’s student at the Bren School of Environmental Science & Management, specializing in Coastal Marine Resources Management and Conservation Planning. After receiving her bachelor’s in Environmental & Ocean Sciences from the University of San Diego in 2018, she worked as a Tidepool Educator for the Laguna Ocean Foundation and Scientific Aid for the California Department of Fish and Wildlife. Sydney hopes to further her career in marine conservation, education, and research with a specific focus on the impacts of climate change and plastic pollution.\n            \n        \n      \n    \n\n    \n    \n    ",
+      "last_modified": "2021-02-01T00:12:30-08:00"
     }
   ],
   "collections": ["posts/posts.json"]
