@@ -4,16 +4,13 @@ name: Sydney
 surname: Rilum
 position: "Master's Student"
 address: "Bren School of Environmental Science & Management"
-phone: +1 22 3333 4444
-www: mariecurie.com
 email: "sydneyrilum@ucsb.edu"
 github: sydneyrilum
 linkedin: sydneyrilum
 date: "`r format(Sys.time(), '%B %Y')`"
-aboutme: "Marie is a Polish and naturalized-French physicist and chemist who conducts pioneering research on radioactivity."
 output: 
   vitae::markdowncv:
-    theme: blmoore
+    theme: davewhipp
 ---
 
 ```{r setup, include=FALSE}
@@ -21,26 +18,19 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
 library(vitae)
 ```
 
-## Some stuff about me
-
- * I poisoned myself doing research.
- * I was the first woman to win a Nobel prize
- * I was the first person and only woman to win a Nobel prize in two different sciences.
-
 ## Education
 
 ```{r}
 library(tibble)
 tribble(
   ~ Degree, ~ Year, ~ Institution, ~ Where,
-  "Informal studies", "1889-91", "Flying University", "Warsaw, Poland",
-  "Master of Physics", "1893", "Sorbonne Université", "Paris, France",
-  "Master of Mathematics", "1894", "Sorbonne Université", "Paris, France"
-) %>% 
+  "Master of Environmental Science & Management", "2020-2022", "UCSB Bren School", "Santa Barbara, California",
+  "Bachelor of Arts in Environmental & Ocean Sciences", "2014-2018", "University of San Diego", "San Diego, California",
+  ) %>% 
   detailed_entries(Degree, Year, Institution, Where)
 ```
 
-## Nobel Prizes
+## Work Experience
 
 ```{r}
 tribble(
@@ -59,7 +49,7 @@ tribble(
 
 ```{r}
 library(dplyr)
-knitr::write_bib(c("vitae", "tibble"), "packages.bib")
+knitr::write_bib("vitae", "packages.bib")
 
 bibliography_entries("packages.bib") %>%
   arrange(desc(author$family), issued)
