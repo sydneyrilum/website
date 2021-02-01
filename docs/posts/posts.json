@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/2021-01-31-welcome/",
+    "title": "welcome",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Sydney Rilum",
+        "url": {}
+      }
+    ],
+    "date": "2021-01-31",
+    "categories": [],
+    "contents": "\nDistill is a publication format for scientific and technical writing, native to the web.\nLearn more about using Distill at https://rstudio.github.io/distill.\n\n\n\n",
+    "preview": {},
+    "last_modified": "2021-01-31T19:00:24-08:00",
+    "input_file": {}
+  }
+]
