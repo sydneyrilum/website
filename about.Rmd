@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 
 <center>
-![Mammalogy Intern - Aquarium of the Pacific](sealion.jpg)
+![Marine Mammalogy Intern - Aquarium of the Pacific](sealion.jpg)
 
 </center>
 

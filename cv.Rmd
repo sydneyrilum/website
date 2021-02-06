@@ -23,19 +23,75 @@ library(vitae)
 ```{r}
 library(tibble)
 tribble(
-  ~ Degree, ~ Year, ~ Institution, ~ Where,
-  "Master of Environmental Science & Management", "2020-2022", "UCSB Bren School", "Santa Barbara, California",
-  "Bachelor of Arts in Environmental & Ocean Sciences", "2014-2018", "University of San Diego", "San Diego, California",
+  ~ Institution, ~ Year, ~ Where, ~ Degree,
+  "UCSB Bren School of Environmental Science & Management", "2020 - 2022", "Santa Barbara, California", "Master of Environmental Science and Management",
+  "University of San Diego", "2014 - 2018", "San Diego, California", "Bachelor of Arts in Environmental and Ocean Sciences",
   ) %>% 
-  detailed_entries(Degree, Year, Institution, Where)
+  detailed_entries(Institution, Year, Where, Degree)
 ```
 
 ## Work Experience
 
 ```{r}
+library(tibble)
+tribble(
+  ~ Position, ~ Year, ~ Where, ~ Institution,
+  "Scientific Aid", "5/2020 - 6/2020", "Newport Beach, California", "California Department of Fish and Wildlife",
+  "Tidepool Educator", "5/2019 - 9/2020", "Laguna Beach, California", "Laguna Ocean Foundation",
+  "NSF-Funded Research Intern", "6/2017 - 8/2017", "Beaufort, North Carolina", "Duke University Marine Laboratory",
+  "Marine Mammalogy Intern", "5/2016 - 8/2016", "Long Beach, California", "Aquarium of the Pacific",
+  ) %>% 
+  detailed_entries(Position, Year, Where, Institution)
+```
+
+## Volunteer Experience
+
+```{r}
+library(tibble)
+tribble(
+  ~ Position, ~ Year, ~ Where, ~ Organization,
+  "CoAST SB Beach Profile Monitor", "10/2020 - Present", "Santa Barbara, California", "California Sea Grant",
+  "Shorebird Field Monitor and Education Outreach Volunteer", "10/2018 - 9/2020", "Orange County, California", "OC Habitats",
+  "Science Education Mentor", "1/2018 - 3/2018", "San Diego, North Carolina", "Ocean Discovery Institute",
+  ) %>% 
+  detailed_entries(Position, Year, Where, Organization)
+```
+
+## Conferences
+
+```{r}
+library(tibble)
+tribble(
+  ~ Research, ~ Year, ~ Where, ~ Conference,
+  "Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater", "4/4/2019", "St. John's, Newfoundland, Canada", "48th Benthic Ecology Meeting",
+  "Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater", "4/19/2018", "San Diego, California", "Creative Collaborations Undergraduate Research Conference",
+  ) %>% 
+  detailed_entries(Research, Year, Where, Conference)
+```
+
+## Publication
+
+**Rilum, S.C. (2018). Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater. Undergraduate Honors Theses, 58.** [http://digital.sandiego.edu/honors_theses/58](http://digital.sandiego.edu/honors_theses/58)
+
+## Skills & Certifications
+
+R, statistical analysis
+
+GIS, basic mapping
+
+Microsoft Word, Excel, Powerpoint
+
+PADI Open Water Diver
+
+California Boating License
+
+
+
+```{r, include = FALSE}
+## Awards
 tribble(
   ~Year, ~Type, ~Desc,
-  1903, "Physics", "Awarded for her work on radioactivity with Pierre Curie and Henri Becquerel",
+  2020, "Physics", "Awarded for her work on radioactivity with Pierre Curie and Henri Becquerel",
   1911, "Chemistry", "Awarded for the discovery of radium and polonium"
 ) %>% 
   brief_entries(
@@ -45,9 +101,8 @@ tribble(
   )
 ```
 
+```{r, include = FALSE}
 ## Publications
-
-```{r}
 library(dplyr)
 knitr::write_bib("vitae", "packages.bib")
 
