@@ -3,7 +3,7 @@ title: CV
 name: Sydney
 surname: Rilum
 position: "Master's Student"
-address: "Bren School of Environmental Science & Management"
+address: "Bren School of Environmental Science & Management, UC Santa Barbara"
 email: "sydneyrilum@ucsb.edu"
 github: sydneyrilum
 linkedin: sydneyrilum
@@ -75,9 +75,9 @@ tribble(
 
 ## Skills & Certifications
 
-**Computer:** R (statistical analysis), GIS (basic mapping), Microsoft (Word, Excel, Powerpoint)
+**Computer:** R/R Studio, ArcGIS/QGIS (basic mapping), Microsoft Office (Word, Excel, Powerpoint, Outlook)
 
-**Languages:** Conversational Spanish, Basic Danish
+**Languages:** English, Conversational Spanish, Basic Danish
 
 **Certifications:** PADI Open Water Diver, California Boating License
 
