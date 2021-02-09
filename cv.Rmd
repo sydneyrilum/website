@@ -24,8 +24,8 @@ library(vitae)
 library(tibble)
 tribble(
   ~ Institution, ~ Year, ~ Where, ~ Degree,
-  "UCSB Bren School of Environmental Science & Management", "2020 - 2022", "Santa Barbara, California", "Master of Environmental Science and Management",
-  "University of San Diego", "2014 - 2018", "San Diego, California", "Bachelor of Arts in Environmental and Ocean Sciences",
+  "UCSB Bren School of Environmental Science & Management", "Expected 2022", "Santa Barbara, CA", "Master of Environmental Science and Management",
+  "University of San Diego", "2014 - 2018", "San Diego, CA", "Bachelor of Arts in Environmental and Ocean Sciences",
   ) %>% 
   detailed_entries(Institution, Year, Where, Degree)
 ```
@@ -36,10 +36,10 @@ tribble(
 library(tibble)
 tribble(
   ~ Position, ~ Year, ~ Where, ~ Institution,
-  "Scientific Aid", "5/2020 - 6/2020", "Newport Beach, California", "California Department of Fish and Wildlife",
-  "Tidepool Educator", "5/2019 - 9/2020", "Laguna Beach, California", "Laguna Ocean Foundation",
-  "NSF-Funded Research Intern", "6/2017 - 8/2017", "Beaufort, North Carolina", "Duke University Marine Laboratory",
-  "Marine Mammalogy Intern", "5/2016 - 8/2016", "Long Beach, California", "Aquarium of the Pacific",
+  "California Department of Fish and Wildlife", "5/2020 - 6/2020", "Newport Beach, CA", "Scientific Aid,",
+  "Laguna Ocean Foundation", "5/2019 - 9/2020", "Laguna Beach, CA", "Tidepool Educator,",
+  "Duke University Marine Laboratory", "6/2017 - 8/2017", "Beaufort, NC", "NSF-Funded Research Intern,",
+  "Aquarium of the Pacific", "5/2016 - 8/2016", "Long Beach, CA", "Marine Mammalogy Intern,",
   ) %>% 
   detailed_entries(Position, Year, Where, Institution)
 ```
@@ -50,9 +50,9 @@ tribble(
 library(tibble)
 tribble(
   ~ Position, ~ Year, ~ Where, ~ Organization,
-  "CoAST SB Beach Profile Monitor", "10/2020 - Present", "Santa Barbara, California", "California Sea Grant",
-  "Shorebird Field Monitor and Education Outreach Volunteer", "10/2018 - 9/2020", "Orange County, California", "OC Habitats",
-  "Science Education Mentor", "1/2018 - 3/2018", "San Diego, North Carolina", "Ocean Discovery Institute",
+  "California Sea Grant - CoAST SB", "10/2020 - Present", "Santa Barbara, CA", "Beach Profile Monitor,",
+  "OC Habitats", "10/2018 - 9/2020", "Orange County, CA", "Shorebird Field Monitor & Education Outreach Volunteer,",
+  "Ocean Discovery Institute", "1/2018 - 3/2018", "San Diego, CA", "Science Education Mentor,",
   ) %>% 
   detailed_entries(Position, Year, Where, Organization)
 ```
@@ -63,7 +63,7 @@ tribble(
 library(tibble)
 tribble(
   ~ Research, ~ Year, ~ Where, ~ Conference,
-  "Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater", "4/4/2019", "St. John's, Newfoundland, Canada", "48th Benthic Ecology Meeting",
+  "Awarded 2nd place for undergraduate research presentation on the Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater", "4/4/2019", "St. John's, Newfoundland, Canada", "48th Benthic Ecology Meeting",
   "Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater", "4/19/2018", "San Diego, California", "Creative Collaborations Undergraduate Research Conference",
   ) %>% 
   detailed_entries(Research, Year, Where, Conference)
@@ -71,19 +71,15 @@ tribble(
 
 ## Publication
 
-**Rilum, S.C. (2018). Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater. Undergraduate Honors Theses, 58.** [http://digital.sandiego.edu/honors_theses/58](http://digital.sandiego.edu/honors_theses/58)
+**Rilum, S.C. (2018).** Effect of Adult Chemical Cues on Molting of Fiddler Crab Megalopae in Low Salinity Seawater. *Undergraduate Honors Theses*, 58. [http://digital.sandiego.edu/honors_theses/58](http://digital.sandiego.edu/honors_theses/58)
 
 ## Skills & Certifications
 
-R, statistical analysis
+**Computer:** R (statistical analysis), GIS (basic mapping), Microsoft (Word, Excel, Powerpoint)
 
-GIS, basic mapping
+**Languages:** Conversational Spanish, Basic Danish
 
-Microsoft Word, Excel, Powerpoint
-
-PADI Open Water Diver
-
-California Boating License
+**Certifications:** PADI Open Water Diver, California Boating License
 
 
 
