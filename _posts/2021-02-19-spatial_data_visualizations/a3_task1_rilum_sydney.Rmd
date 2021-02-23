@@ -1,0 +1,90 @@
+---
+title: "Spatial Data Visualizations"
+description: |
+  California oil spills interactive and static maps
+author:
+  - name: Sydney Rilum
+date: 02-19-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(here)
+library(sf)
+library(janitor)
+library(tmap)
+```
+
+```{r}
+# Read in the oil spill data
+oil_spill <- read_sf(here("data", "oil_spill", "Oil_Spill_Incident_Tracking_%5Bds394%5D.shp")) %>% 
+  clean_names()
+
+# Read in California counties outline
+ca_counties <- read_sf(here("data", "ca_counties", "CA_Counties_TIGER2016.shp")) %>% 
+  clean_names()
+
+# Check CRS (Coordinate Reference System)
+# st_crs(oil_spill) # WGS 84
+# st_crs(ca_counties) # WGS 84
+```
+
+### Interactive Map
+
+```{r}
+# Set tmap viewing mode to interactive
+tmap_mode("view") 
+
+# Make an interactive map
+tm_shape(ca_counties) +
+  tm_borders() +
+  tm_shape(oil_spill) +
+  tm_dots(col = "sienna2")
+```
+
+**Figure 1.** Interactive map displaying the locations of individual California oil spill events in 2008. (Data: CA DFW Oil Spill Tracking).
+
+<br>
+
+### Static Choropleth Map
+
+```{r}
+# Make subset of oil spill data that only includes inland oil spills
+oil_spills_inland <- oil_spill %>% 
+  filter(inlandmari == "Inland")  
+
+# Spatial join
+ca_oil_spills_inland <- ca_counties %>% 
+  st_join(oil_spills_inland)
+
+# Find counts of inland oil spill events by county 
+inland_spill_counts <- ca_oil_spills_inland %>% 
+  count(name)
+
+# Plot a choropleth map
+ggplot() +
+  geom_sf(data = inland_spill_counts, 
+          aes(fill = n), color = "white", size = 0.1) +
+  scale_fill_gradientn(colors = c("lightgray","orange","red")) +
+  theme_minimal() +
+  labs(fill = "Number of \ninland oil spills",
+       x = "Longitude",
+       y = "Latitude", 
+       title = "2008 Inland Oil Spills")
+```
+
+**Figure 2.** Choropleth map depicting the number of inland oil spill events by California county in 2008. Darker colored counties indicate a greater number of inland oil spills incidents. (Data: CA DFW Oil Spill Tracking).
+
+<br>
+
+### Citations:
+
+Oil spill layers: [CA DFW Oil Spill Incident Tracking Database System (dataset ds394). Edition 2008. Published 2009-07-23.](https://map.dfg.ca.gov/metadata/ds0394.html#ID0EUGA) 
+
+California county boundaries layer: [US Census Bureau's 2016 MAF/TIGER database.](https://data.ca.gov/dataset/ca-geographic-boundaries)
+

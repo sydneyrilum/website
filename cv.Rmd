@@ -24,7 +24,7 @@ library(vitae)
 library(tibble)
 tribble(
   ~ Institution, ~ Year, ~ Where, ~ Degree,
-  "UCSB Bren School of Environmental Science & Management", "Expected 2022", "Santa Barbara, CA", "Master of Environmental Science and Management",
+  "Bren School of Environmental Science & Management, UC Santa Barbara", "Expected 2022", "Santa Barbara, CA", "Master of Environmental Science and Management",
   "University of San Diego", "2014 - 2018", "San Diego, CA", "Bachelor of Arts in Environmental and Ocean Sciences",
   ) %>% 
   detailed_entries(Institution, Year, Where, Degree)

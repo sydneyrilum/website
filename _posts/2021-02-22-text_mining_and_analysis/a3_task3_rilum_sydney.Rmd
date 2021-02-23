@@ -1,0 +1,149 @@
+---
+title: "Text Mining and Analysis"
+description: |
+  of Louisa May Alcott's 'Little Women'
+author:
+  - name: Sydney Rilum
+date: 02-22-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(pdftools) # read in pdfs
+library(here)
+library(tidytext) # tidy text mining tools
+library(textdata) # tools for manipulating text datasets, includes sentiment lexicons
+library(ggwordcloud) # create wordcloud plots
+```
+
+```{r, cache = TRUE}
+# Read in pdf of "Little Women"
+little_women_text <- pdf_text(here("data", "littlewomen.pdf"))
+```
+
+```{r}
+# Convert text into a data frame
+little_women_tidy <- data.frame(little_women_text) %>%
+  mutate(text_full = str_split(little_women_text, pattern = '\\n')) %>%  # break pages up into individual lines
+  unnest(text_full) %>%  # convert each line of text into one row
+  mutate(text_full = str_trim(text_full)) %>%  # remove excess whitespace
+  mutate(text_full = str_squish(text_full))
+
+# Organize strings by chapter number
+little_women_df <- little_women_tidy %>% 
+  slice(-(1:101)) %>%  # remove first rows containing preface and table of contents, start at Ch. 1
+  mutate(chapter = case_when(
+    str_detect(text_full, "CHAPTER") ~ text_full,  # detect rows containing the word "Chapter"
+    TRUE ~ NA_character_
+  )) %>% 
+  fill(chapter) %>%  # fill in Chapter # for each row in respective chapter
+  separate(col = chapter, into = c("ch", "no"), sep = " ") %>%  # separate Chapter and # into two columns
+  mutate(no = str_remove(no, pattern = "\\.")) %>%  # remove period after each Chapter#
+  mutate(no = str_replace(no, pattern = "in", replacement = "III")) %>%  # fix error (XVIII was being read in as XVin)
+  mutate(chapter = as.numeric(as.roman(no)))  # convert Ch# to be recognized as roman numerals and numeric class
+```
+
+```{r}
+# Tokenization - wrangling words/tokens into tidy format
+little_women_tokens <- little_women_df %>% 
+  unnest_tokens(word, text_full) %>%  # split a column into tokens (words) with one token per row
+  dplyr::select(-little_women_text)  %>%  # remove little women text column
+  anti_join(stop_words) %>%  # remove stop words (e.g. a, of, the, etc.)
+  mutate(word = str_squish(word)) %>% 
+  filter(word != "jo") %>%  # remove character names
+  filter(word != "jo's") %>% 
+  filter(word != "beth") %>% 
+  filter(word != "meg") %>% 
+  filter(word != "amy") %>% 
+  filter(word != "amy's") %>% 
+  filter(word != "march") %>% 
+  filter(word != "laurie") %>% 
+  filter(word != "john") %>% 
+  filter(word != "brooke") %>% 
+  filter(word != "hannah") %>% 
+  filter(word != "kate") %>% 
+  filter(word != "demi") %>% 
+  filter(word != "bhaer") %>% 
+  filter(word != "fred") %>% 
+  filter(word != "women") %>% 
+  filter(word != "chapter") %>% 
+  filter(word != "do") %>%  # remove misc. words
+  filter(word != "n't") %>% 
+  filter(word != "11") %>% 
+  filter(word != "ve") %>% 
+  filter(word != "ing")
+```
+
+### Most Frequently Used Words in *Little Women*
+
+```{r}
+# Get word counts
+little_women_wordcount <- little_women_tokens %>% 
+  count(word)
+
+# Make a word cloud using the top 100 words
+top100 <- little_women_wordcount %>% 
+  arrange(-n) %>%  # arrange counts from largest to smallest
+  slice(1:100)  # keep top 100 words
+
+word_cloud <- ggplot(data = top100, aes(label = word)) +
+  geom_text_wordcloud(aes(color = n, size = n), shape = "diamond") +
+  scale_size_area(max_size = 6) +
+  scale_color_gradientn(colors = c("blue","blueviolet","violetred")) +
+  theme_minimal()
+
+word_cloud
+```
+
+**Figure 1.** Wordcloud containing the top 100 most frequently used words in Louisa May Alcott's *Little Women*. Character names and stop words, such as "is", "of", "the", and "and", were removed from word counts to allow for more interesting word assortment. (Data: Alcott 1916).
+
+<br>
+
+### Sentiment Analysis of *Little Women*
+
+```{r}
+# Get word counts by chapter
+little_women_wordcount_ch <- little_women_tokens %>% 
+  count(chapter, word)
+
+# Bind words in `little_women_wordcount` to the `afinn` lexicon
+little_women_afinn <- little_women_wordcount_ch %>% 
+  inner_join(get_sentiments("afinn"))
+
+# Find the mean AFINN score by chapter: 
+afinn_means <- little_women_afinn %>% 
+  group_by(chapter) %>% 
+  summarize(mean_afinn = mean(value)) %>% 
+  mutate(pos = mean_afinn >= 0) # create a new column that indicates + or - value
+
+# Graph positivity and negativity of chapters
+ggplot(data = afinn_means, 
+       aes(x = fct_rev(as.factor(chapter)), 
+           y = mean_afinn,
+           fill = pos)) +
+  geom_col(position = "identity") +
+  scale_fill_manual(values = c("indianred", "cornflowerblue")) +
+  scale_x_discrete(breaks = c(5, 10, 15, 20, 25, 30, 35, 40, 45)) +
+  scale_y_continuous(limits = c(-0.5, 1.2)) +
+  coord_flip() +
+  theme_light() +
+  labs(x = "Chapter",
+       y = "Mean AFINN sentiment score",
+       title = "Little Women - Sentiment Analysis by Chapter") +
+  theme(legend.position = "none")
+```
+
+**Figure 2.** Column graph displaying mean AFINN scores for the words in Parts 1 and 2 (Chapters 1-47) of *Little Women*, using the AFINN lexicon. The AFINN lexicon ranks words from -5 (very negative sentiment) to +5 (very positive sentiment). Blue bars indicate chapters containing more words (on average) with positive mean sentiments, while red bars indicate chapters containing more words (on average) with negative mean sentiments. (Data: Alcott 1916, Nielson 2011).
+
+<br>
+
+### Citations:
+
+Text Data: [Alcott, Louisa M. *Little Women: or Meg, Jo, Beth, and Amy.* Little, Brown, and Company, 1916.](https://archive.org/details/littlewomen00alcoiala/page/n7/mode/2up)
+
+Sentiment Lexicon: [Finn Årup Nielsen A new ANEW: Evaluation of a word list for sentiment analysis in microblogs. Proceedings of the ESWC2011 Workshop on 'Making Sense of Microposts': Big things come in small packages 718 in CEUR Workshop Proceedings 93-98. 2011 May.](http://arxiv.org/abs/1103.2903.)

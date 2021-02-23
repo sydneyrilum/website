@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><metadata>
+    <idinfo>
+        <citation>
+            <citeinfo>
+                <title>BIOSMap</title>
+            </citeinfo>
+        </citation>
+        <descript>
+            <abstract>The Office of Spill Prevention and Response (OSPR) Incident Tracking Database is a statewide oil spill tracking information system. The data are collected by OSPR Field Response Team members for Marine oil spills and by OSPR Inland Pollution Coordinators and Wardens for Inland incidents.</abstract>
+            <purpose>The database system is designed to provide OSPR with quantified statistical data on oil spill response by OSPR field responders. The OSPR Incident Tracking Database System project was initiated to provide OSPR with oil spill incident data for statistical evaluation and justification for program planning, drills and exercise training and development, legislative analysis, budget preparation, to inform and educate the public and analyze OSPRs overall spill preparedness and response performance. An "incident", for purposes of this database, is "a discharge or threatened discharge of petroleum or other deleterious material into the waters of the state."</purpose>
+        </descript>
+        <keywords>
+            <theme>
+                <themekt>None</themekt>
+                <themekey>Auth_CDFW</themekey>
+                <themekey>California Department of Fish And Wildlife</themekey>
+                <themekey>California Natural Resources Agency</themekey>
+                <themekey>CAOpenData</themekey>
+                <themekey>spills</themekey>
+                <themekey>incidents</themekey>
+                <themekey>spill response</themekey>
+                <themekey>ds0394_20090730_wm</themekey>
+            </theme>
+        </keywords>
+        <accconst>None</accconst>
+        <useconst/>
+        <datacred>Mark Lampinen; ; California Department of Fish and Wildlife (CDFW); Office of Spill Prevention and Response (OSPR); 1700 K Street; Sacramento, CA 95814; (916) 322-4777; ; ; Mark.Lampinen@wildlife.ca.gov; </datacred>
+    </idinfo>
+    <metainfo>
+        <metstdn>FGDC Content Standard for Digital Geospatial Metadata</metstdn>
+        <metstdv>FGDC-STD-001-1998</metstdv>
+        <mettc>local time</mettc>
+    </metainfo>
+</metadata>

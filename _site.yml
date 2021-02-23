@@ -1,5 +1,5 @@
 name: "."
-title: "Sydney Rilum"
+title: "S.R."
 description: |
   mfeo
 output_dir: "docs"
@@ -9,7 +9,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "Blog"
+    - text: "Projects"
       href: blog.html
     - text: "CV"
       href: cv.html

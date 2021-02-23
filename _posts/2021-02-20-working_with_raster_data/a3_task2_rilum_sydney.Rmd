@@ -1,0 +1,82 @@
+---
+title: "Working with Raster Data"
+description: |
+  Raster of cetacean species richness off the California coast
+author:
+  - name: Sydney Rilum
+date: 02-20-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(raster) # attach this BEFORE tidyverse
+library(tidyverse)
+library(here)
+library(sf)
+library(fasterize)
+library(rnaturalearth)
+```
+
+```{r}
+## Create a raster of cetacean species richness off the California coast
+
+# Read in cetaceans shapefiles all together
+cetaceans_files <- list.files(path = here("data", "ca_cetaceans"), full.names = TRUE)
+
+# Rasterize all .tif files at once
+cetaceans_stack <- raster::stack(cetaceans_files) 
+  
+# Convert into a data frame
+cetaceans_df <- rasterToPoints(cetaceans_stack) %>%  # convert raster to points
+  as_tibble()  # convert points to a data frame
+
+# Wrangle the data to determine number of species present in each (x,y) cell (i.e. species richness)
+species_richness <- cetaceans_df %>% 
+  pivot_longer(cols = 3:37,
+               names_to = "species",
+               values_to = "probability") %>% 
+  mutate(presence = case_when(  # apply probability threshold of 0.6
+    probability >= 0.6 ~ 1,  # 1 = species present
+    probability < 0.6 ~ 0)) %>%  # 0 = species not present
+  filter(presence == 1) %>% 
+  group_by(x, y) %>%  # group by coordinates/cells
+  count(presence)
+```
+
+```{r, results = "hide"}
+# Read in California coastline shapefile from `rnaturalearth` package
+california <- ne_download(scale = 110, type = 'coastline', category = 'physical', returnclass = "sf") 
+```
+
+### Raster of Cetacean Species Richness off the California Coast
+
+```{r}
+# Create a map of cetacean species richness off the California coast
+ggplot() +
+  geom_raster(data = species_richness, 
+              aes(x = x, y = y, fill = n)) +
+  geom_sf(data = california) + # shapefile of the coastline
+  coord_sf(expand = 0,  # define boundaries of map to match the raster extent
+           xlim = c(-125, -115), 
+           ylim = c(32, 38)) +
+  scale_fill_gradientn(colors = c("lightgray", "steelblue1","darkblue")) +
+  theme_light() +
+  theme(panel.background = element_rect(fill = "white")) +
+  labs(fill = "Number of \nCetacean Species",
+       x = "Longitude",
+       y = "Latitude")
+```
+
+**Figure 1.** A map depicting a raster of species richness for 35 cetacean species off the coast of California. Raster of species richness was created by considering a species as "present" in each cell if its probability of occurrence was greater than or equal to a threshold value of 0.6. Darker blue cells indicate areas with higher species richness. (Data: Kaschner *et al.* 2016).
+
+<br>
+
+### Citations:
+
+Cetacean raster data: [Kaschner, K., Rius-Barile, J., Kesner-Reyes, K., Garilao, C., Kullander, S., Rees, T., & Froese, R. (2016). AquaMaps: Predicted range maps for aquatic species.](https://www.aquamaps.org/)
+
+California coastline layer: [Andy South (2017). rnaturalearth: World Map Data from Natural Earth. R package version 0.1.0.](https://CRAN.R-project.org/package=rnaturalearth)
