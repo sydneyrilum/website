@@ -13,4 +13,4 @@ output:
 site: distill::distill_website
 ---
 
-Sydney is a first year Master’s student at the Bren School of Environmental Science & Management, specializing in Coastal Marine Resources Management and Conservation Planning. After receiving her bachelor's in Environmental & Ocean Sciences from the University of San Diego in 2018, she worked as a Tidepool Educator for the Laguna Ocean Foundation and Scientific Aid for the California Department of Fish and Wildlife. Sydney hopes to further her career in marine conservation, education, and research with a specific focus on the impacts of climate change and plastic pollution. 
+Sydney is currently a first year Master’s student at UC Santa Barbara's Bren School of Environmental Science & Management, specializing in Coastal Marine Resources Management and Conservation Planning. She hopes to further her career in marine conservation, education, and data science with a specific focus on the impacts of climate change and plastic pollution. 

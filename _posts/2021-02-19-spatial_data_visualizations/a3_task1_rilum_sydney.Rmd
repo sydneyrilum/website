@@ -1,10 +1,10 @@
 ---
 title: "Spatial Data Visualizations"
 description: |
-  California oil spills interactive and static maps
+  Interactive and static maps of California oil spills
 author:
   - name: Sydney Rilum
-date: 02-19-2021
+date: 02-20-2021
 output:
   distill::distill_article:
     self_contained: false
@@ -34,7 +34,7 @@ ca_counties <- read_sf(here("data", "ca_counties", "CA_Counties_TIGER2016.shp"))
 # st_crs(ca_counties) # WGS 84
 ```
 
-### Interactive Map
+## Interactive Map
 
 ```{r}
 # Set tmap viewing mode to interactive
@@ -51,7 +51,7 @@ tm_shape(ca_counties) +
 
 <br>
 
-### Static Choropleth Map
+## Static Choropleth Map
 
 ```{r}
 # Make subset of oil spill data that only includes inland oil spills
