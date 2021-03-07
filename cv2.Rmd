@@ -1,0 +1,14 @@
+---
+title: "Curriculum Vitae"
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+```
+
+
+```{r echo = FALSE, message=FALSE, fig.align='center', fig.pos='H', out.width = "800px", out.height = "1100px"}
+knitr::include_graphics(here("data", "Rilum_Sydney_CV.pdf"))
+```

@@ -12,6 +12,6 @@ navbar:
     - text: "Projects"
       href: blog.html
     - text: "CV"
-      href: cv.html
+      href: cv2.html
 output: distill::distill_article
 theme: sr_theme.css
