@@ -1,0 +1,176 @@
+---
+title: "Parameter Estimation"
+description: |
+  Estimating parameters for global wild fish catch using nonlinear least squares
+author:
+  - name: Sydney Rilum
+date: 03-03-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(broom)
+library(nlstools)
+library(gt)
+```
+
+## Introduction
+
+In this document, nonlinear least squares will be utilized to estimate parameters for an equation that represents the increase in global wild fish catch from 1950 – 2012. Nonlinear least squares converges on parameter estimates that minimize the sum of squares of residuals through an iterative algorithm.
+
+## Exploratory Graphs
+
+```{r}
+# Read in the data
+fish_catch <- read_csv(here("data", "fish_catch.csv")) %>% 
+  row_to_names(row_number = 2) %>%  # convert second row to column headers
+  clean_names() %>% 
+  slice(-(1:2), -(66:69)) %>%  # remove rows with notes/information
+  mutate(years = 0:62) %>%  # create a new column numbering years starting at 0 (1950 = 0)
+  mutate(wild_catch = as.numeric(wild_catch)) %>% 
+  mutate(year = as.numeric(year))
+```
+
+```{r}
+# Exploratory graph
+ggplot(data = fish_catch, aes(x = year, y = wild_catch)) +
+  geom_line() +
+  theme_minimal() +
+  labs(x = "Time (years)", 
+       y = "Wild catch (million tons)")
+```
+
+**Figure 1.** Exploratory graph of world wild fish catch (in millions of tons) over time (in years) from 1950 – 2012. (Data: U.N. Food and Agriculture Organization (FAO))
+
+```{r}
+# Exploratory graph of log transformed data
+ggplot(data = fish_catch, aes(x = year, y = log(wild_catch))) +
+  geom_line() +
+  theme_minimal() +
+  labs(x = "Time (years)", 
+       y = "ln(Wild catch (million tons))")
+```
+
+**Figure 2.** Exploratory graph of log transformed world wild fish catch (in millions of tons) over time (in years) from 1950 – 2012. (Data: U.N. FAO)
+
+<br>
+
+From the exploratory plots, there appears to be a logistic trend of wild fish catch over time. Wild fish catch increases exponentially until 1990 and then plateaus out, remaining relatively constant until 2012. 
+
+Mathematically, wild fish catch data can be described by the logistic growth equation: 
+
+$P(t)=\frac{K}{1+Ae^{-kt}}$, where
+
+- $K$ is the carrying capacity
+- $A$ is $\frac{K-P_0}{P_0}$
+- $k$ is the growth rate constant
+
+<br>
+
+## Initial estimates for logistic growth parameters: *K*, *A* and *k*
+
+```{r}
+# Estimate the growth constant during exponential phase (to get a starting-point guess for *k*): 
+fish_catch_exp <- fish_catch %>% 
+  filter(years < 40) %>%  # Get only up to 40 years (exponential growth phase)
+  mutate(ln_wild_catch = log(wild_catch))  # log transform the wild_catch data
+  
+# Model linear to get *k* estimate (the slope of this linear equation is an estimate of the growth rate constant):
+lm_k <- lm(ln_wild_catch ~ years, data = fish_catch_exp)
+
+# lm_k
+# Coefficient (k) ~ 0.04
+```
+
+Initial estimates for model parameters:
+
+- $K$ ~ 90
+- $A$ ~ 4.23
+- $k$ ~ 0.04
+
+These estimates will be used as starting points for interactive algorithms used in nonlinear least squares that try to converge on the parameters.
+
+<br>
+
+## Find parameters for logistic model using nonlinear least squares
+
+```{r}
+# Enter model information, with a list of estimated starting parameter values:
+fish_catch_nls <- nls(wild_catch ~ K/(1 + A*exp(-k*years)),
+              data = fish_catch,
+              start = list(K = 90, A = 4.23, k = 0.04),
+              trace = FALSE)
+
+# See the model summary (null hypothesis: parameter value = 0)
+# summary(fish_catch_nls)
+
+# Use broom:: functions to get model outputs in tidier format: 
+model_output <- broom::tidy(fish_catch_nls)
+```
+
+**Table 1.** Logistic model parameter estimates generated from nonlinear least squares, to be used to describe wild fish catch data.
+
+```{r}
+# Finalized table
+model_output %>% 
+  gt() %>% 
+  fmt_number(columns = vars(estimate, std.error, statistic),
+             decimals = 2) %>% 
+  fmt_scientific(columns = vars(p.value),
+                 decimals = 2) %>% 
+  tab_options(table.width = pct(70),
+              table.align = "left") %>% 
+  cols_label(term = "Term",
+             estimate = "Estimate",
+             std.error = "Standard Error",
+             statistic = "Statistic",
+             p.value = "p-value") %>%
+  tab_header(title = "Parameter Estimates")%>% 
+  tab_footnote(footnote = "Units: K = million tons wild catch, A = unitless, k = million tons wild catch/year",
+               locations = cells_column_labels(columns = vars(term)))
+```
+
+<br>
+
+The wild fish catch logistic model with estimated parameters can be written as:
+$$P(t) = \frac{100.28}{1+4.32e^{-0.07t}}$$
+
+<br>
+
+## Visualize logistic model over original wild catch data
+
+```{r}
+# Make predictions of wild catch for each year in the original data frame
+fish_catch_predict <- predict(fish_catch_nls)
+
+# Bind predictions to original data frame
+fish_catch_complete <- data.frame(fish_catch, fish_catch_predict)
+
+# Plot original data and predicted values from model together:
+ggplot(data = fish_catch_complete, aes(x = years, y = wild_catch)) +
+  geom_point() +
+  geom_line(aes(x = years, y = fish_catch_predict),
+            color = "red") +
+  theme_minimal() +
+  labs(x = "Time (years)",
+       y = "Wild catch (million tons)",
+       title = "Global Wild Fish Catch from 1950 – 2012")
+
+# Find confidence intervals for parameter estimates
+fish_catch_ci <- confint2(fish_catch_nls)
+```
+
+**Figure 3.** A plot displaying the logistic model output (red line) for wild fish catch over time in years against the original wild fish catch data (black points). 
+
+<br>
+
+### Citation:
+
+[Global wild fish catch and aquaculture production, compiled by Earth Policy Institute with 1950-2010 from U.N. Food and Agriculture Organization (FAO), Global Capture Production and Global Aquaculture Production, electronic databases.](www.fao.org/fishery/topic/16140/en)

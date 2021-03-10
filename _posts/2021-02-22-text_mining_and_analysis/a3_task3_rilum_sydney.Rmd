@@ -4,7 +4,7 @@ description: |
   of Louisa May Alcott's 'Little Women'
 author:
   - name: Sydney Rilum
-date: 02-23-2021
+date: 02-22-2021
 output:
   distill::distill_article:
     self_contained: false

@@ -4,7 +4,7 @@ description: |
   Testing the feasibility of using physical characteristics to predict Palmetto plant species
 author:
   - name: Sydney Rilum
-date: 02-04-2021
+date: 02-03-2021
 output:
   distill::distill_article:
     self_contained: false

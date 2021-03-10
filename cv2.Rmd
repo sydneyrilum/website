@@ -8,6 +8,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r echo = FALSE, message = FALSE, fig.align = 'center', fig.pos = 'H', out.width = "800px", out.height = "1100px"}
+```{r echo = FALSE, message = FALSE, fig.align = 'center', fig.pos = 'H', out.width = "900px", out.height = "1220px"}
 knitr::include_graphics("./cv/Rilum_Sydney_CV.pdf")
 ```
