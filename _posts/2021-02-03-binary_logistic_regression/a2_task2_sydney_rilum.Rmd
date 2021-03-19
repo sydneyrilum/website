@@ -8,7 +8,6 @@ date: 02-03-2021
 output:
   distill::distill_article:
     self_contained: false
-    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -24,7 +23,7 @@ library(kableExtra)
 
 ## Introduction
 
-In this report, binary logistic regression is utilized to test the feasibility of using the variables plant height, canopy length, canopy width, and number of green leaves to classify whether a palmetto plant is of the species *Serenoa repens* or *Sabal etonia*. The data was acquired from [Abrahamson's 2019 study](https://doi.org/10.6073/pasta/f2f96ec76fbbd4b9db431c79a770c4d5) conducted at the Archbold Biological Station in south-central Florida from 1981 - 2017, at 5 year intervals, for the two dominant palmetto species.
+In this report, binary logistic regression is utilized to test the feasibility of using the variables plant height, canopy length, canopy width, and number of green leaves to classify whether a palmetto plant is of the species *Serenoa repens* or *Sabal etonia*. The binary logistic regression model uses a 50% probability cut-off, generated from the four predictor variables, to classify the species of the palmetto plant. The model's species prediction success is also evaluated against the original data set. Palmetto plant data was acquired from [Abrahamson's 2019 study](https://doi.org/10.6073/pasta/f2f96ec76fbbd4b9db431c79a770c4d5) conducted at the Archbold Biological Station in south-central Florida from 1981 - 2017, at 5 year intervals, for the two dominant palmetto species.
 
 
 ## Exploratory Data Visualizations
